@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"><!-- Isso: ativa o Thymeleaf permite usar th:text, th:if, etc. -->
 <head>
     <meta charset="UTF-8">
     <title>Notificação de Tarefa</title>
@@ -42,7 +42,8 @@
         <h1>Notificação de Tarefa</h1>
     </div>
     <div class="content">
-        <p>Aviso: Sua tarefa <span class="important" th:text="${nomeTarefa}">Nome da Tarefa</span> está agendada para hoje às <span class="important" th:text="${dataEvento}">Horário</span>.</p>
+        <p>Aviso: Sua tarefa <span class="important" th:text="${nomeTarefa}">Nome da Tarefa</span>
+            está agendada para hoje às <span class="important" th:text="${dataEvento}">Horário</span>.</p>
         <p>Confira sua descrição:</p>
         <p th:text="${descricao}">Descrição da Tarefa</p>
     </div>
@@ -52,3 +53,12 @@
 </div>
 </body>
 </html>
+<!--
+th:text="${nomeTarefa}"
+th:text="${dataEvento}"
+th:text="${descricao}"
+
+context.setVariable("nomeTarefa", ...)
+context.setVariable("dataEvento", ...)
+context.setVariable("descricao", ...)
+-->
