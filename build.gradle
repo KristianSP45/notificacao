@@ -26,7 +26,11 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	//Isso traz: JavaMailSender, MimeMessage e integração com spring.mail do yml
+
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	//Isso traz: TemplateEngine, Context e leitura de .html em resources/templates
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

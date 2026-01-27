@@ -3,22 +3,28 @@ spring:
     name: notificacao
 
   mail:
-    host: smtp.gmail.com
-    port: 587
+    host: smtp.gmail.com #Servidor SMTP do Gmail.
+    port: 587 #SMTP com STARTTLS (seguro)
     username:
+      #e-mail remetente
     password:
-    protocol: smtp
+      #senha de app
+    protocol: smtp #Define o protocolo de envio.
+
+    #Isso aqui é o que o JavaMailSender usa por baixo.
 
     properties:
       mail:
         smtp:
           auth: true
+          #Obriga autenticação.
           starttls:
-            enable: true
+            enable: true #Ativa criptografia TLS (sem isso o Gmail bloqueia).
 
           connectiontimeout: 5000
           timeout: 3000
           writetimeout: 5000
+          #Evita que a aplicação: trave, fique esperando eternamente
 
           socketFactory:
             port: 465
@@ -27,6 +33,8 @@ spring:
 
   thymeleaf:
     enabled: true
+    #Diz pro Spring: “Pode usar templates HTML”
+    #Isso permite: templateEngine.process("notificacao", context);
 
 envio:
   email:
