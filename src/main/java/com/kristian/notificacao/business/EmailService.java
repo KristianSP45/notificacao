@@ -1,5 +1,6 @@
 package com.kristian.notificacao.business;
 
+import com.kristian.notificacao.business.dto.ComunicacaoDTO;
 import com.kristian.notificacao.business.dto.TarefasDTO;
 import com.kristian.notificacao.infrastructure.exceptions.EmailException;
 import jakarta.mail.MessagingException;
@@ -36,7 +37,7 @@ public class EmailService {
     @Value("${envio.email.nomeRemetente}")
     private  String nomeRemetente;
 
-    public void enviaEmail(TarefasDTO dto){
+    public void enviaEmail(ComunicacaoDTO dto){//Antes -- TarefasDTO
         try {
             MimeMessage mensagem = javaMailSender.createMimeMessage();//Cria o objeto do e-mail vazio.
             //MimeMessage = o e-mail em branco
@@ -48,13 +49,19 @@ public class EmailService {
             //3 UTF-8 > evita bug com acento
 
             mimeMessageHelper.setFrom(new InternetAddress(remetente, nomeRemetente));//helper.setFrom(...) = Define quem está enviando.
-            mimeMessageHelper.setTo(InternetAddress.parse(dto.getEmailUsuario()));//helper.setTo(...) = Define pra quem vai.
+            mimeMessageHelper.setTo(InternetAddress.parse(dto.getEmailDestinatario()));//helper.setTo(...) = Define pra quem vai.
             mimeMessageHelper.setSubject("Notificação de Tarefa");//helper.setSubject(...) = Define o assunto.
 
             Context context = new Context();//Context = mapa de variáveis pro HTML.
-            context.setVariable("nomeTarefa", dto.getNomeTarefa());
-            context.setVariable("dataEvento", dto.getDataEvento());
-            context.setVariable("descricao", dto.getDescricao());
+            context.setVariable("nomeDestinatario", dto.getNomeDestinatario());
+            context.setVariable("dataHoraEnvio", dto.getDataHoraEnvio());
+            context.setVariable("mensagem", dto.getMensagem());
+
+            //Antes
+            //context.setVariable("nomeTarefa", dto.getNomeTarefa());
+            //context.setVariable("dataEvento", dto.getDataEvento());
+            //context.setVariable("descricao", dto.getDescricao());
+
             String template = templateEngine.process("notificacao", context);//Isso: Pega notificacao.html + dados > HTML final pronto.
             mimeMessageHelper.setText(template, true);//true > indica que é HTML e coloca o HTML dentro do e-mail.
             javaMailSender.send(mensagem);//Aqui o e-mail realmente sai / Entrega o e-mail pro servidor SMTP.

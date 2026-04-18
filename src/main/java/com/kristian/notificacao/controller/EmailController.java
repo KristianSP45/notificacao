@@ -1,6 +1,7 @@
 package com.kristian.notificacao.controller;
 
 import com.kristian.notificacao.business.EmailService;
+import com.kristian.notificacao.business.dto.ComunicacaoDTO;
 import com.kristian.notificacao.business.dto.TarefasDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ public class EmailController {
     private final EmailService emailService;
 
     @PostMapping
-    public ResponseEntity<Void> enviaEmail(@RequestBody TarefasDTO dto){
+    public ResponseEntity<Void> enviaEmail(@RequestBody ComunicacaoDTO dto){//Antes -- TarefasDTO
         emailService.enviaEmail(dto);
         return ResponseEntity.ok().build();
     }
